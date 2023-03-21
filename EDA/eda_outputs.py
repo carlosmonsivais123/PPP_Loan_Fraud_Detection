@@ -79,8 +79,10 @@ class EDA_Outputs:
     def eda_spread_by_gender(self, data):
         fig=px.strip(data, 
                      x='Gender', 
-                     y='CurrentApprovalAmount', 
+                     y='CurrentApprovalAmount',
+                     title="Loan Current Approval Amount by Gender",
                      color='Gender')
+        fig.update_layout(title_x=0.5)
         fig.write_image("Plots_Storage/EDA_Plots/approval_amount_spread_by_gender.png")
 
         return None
