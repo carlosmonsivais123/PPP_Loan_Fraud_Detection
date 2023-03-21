@@ -46,5 +46,9 @@ eda_outputs.eda_average_loan_amount_by_lmi_indicator_by_industry(data=clean_data
 eda_outputs.eda_average_loan_amount_by_hubzone_indicator_by_industry(data=clean_data_df)
 
 
+# Subsetting Features
+
+
+
 # Sklearn Pipeline For Modeling Features
 print('Normalizing And One-Hot Encoding Variables That Will Be Used To Model\n')
