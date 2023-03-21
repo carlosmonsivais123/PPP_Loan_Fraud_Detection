@@ -1,4 +1,3 @@
-import plotly.graph_objects as go
 import plotly.express as px
 import plotly.figure_factory as ff
 import plotly.express as px
@@ -109,5 +108,57 @@ class EDA_Outputs:
                           yaxis_title="Industry Type")
         
         fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_industry_and_gender.png")
+
+        return None
+    
+    def eda_average_loan_amount_by_lmi_indicator_by_industry(self, data):
+        lmi_indicator_by_industry_type=data.groupby(['Industry_Type', 'LMIIndicator'])['CurrentApprovalAmount'].mean().reset_index()
+        fig=px.bar(lmi_indicator_by_industry_type, 
+                   x="Industry_Type", 
+                   y="CurrentApprovalAmount",
+                   title="Average Current Approval Amount by Lower Middle Income Indicator", 
+                   color="LMIIndicator",
+                   barmode='group',)
+        fig.update_layout(xaxis=dict(tickfont=dict(size=8)), 
+                          title_x=0.5,
+                          xaxis_title="Industry Type",
+                          yaxis_title="Average Current Approval Amount",
+                          legend_title="Lower Middle Income Indicator",
+                          legend=dict(font=dict(size=9), 
+                                      orientation="h",
+                                      entrywidth=70,
+                                      yanchor="bottom",
+                                      y=1.02,
+                                      xanchor="right",
+                                      x=0.90))
+        
+        fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_lmi_indicator_by_industry.png")
+
+        return None
+        
+
+    def eda_average_loan_amount_by_hubzone_indicator_by_industry(self, data):
+        hbzi_indicator_by_industry_type=data.groupby(['Industry_Type', 'HubzoneIndicator'])['CurrentApprovalAmount'].mean().reset_index()
+        fig=px.bar(hbzi_indicator_by_industry_type, 
+                   x="Industry_Type", 
+                   y="CurrentApprovalAmount",
+                   title="Average Current Approval Amount by Historically Under-utilized Business Zones", 
+                   color="HubzoneIndicator",
+                   barmode='group',)
+        fig.update_layout(xaxis=dict(tickfont=dict(size=8)), 
+                          title_x=0.5,
+                          title=dict(font=dict(size=12)),
+                          xaxis_title="Industry Type",
+                          yaxis_title="Average Current Approval Amount",
+                          legend_title="Historically Under-utilized Business Zones Indicator",
+                          legend=dict(font=dict(size=7), 
+                                      orientation="h",
+                                      entrywidth=70,
+                                      yanchor="bottom",
+                                      y=1.02,
+                                      xanchor="right",
+                                      x=0.90))
+        
+        fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_hubzone_indicator_by_industry.png")
 
         return None

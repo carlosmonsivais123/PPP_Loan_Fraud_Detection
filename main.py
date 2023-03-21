@@ -15,7 +15,7 @@ eda_outputs=EDA_Outputs()
 
 
 # Read in Data
-print('Reading in Data\n')
+print('Reading In Data\n')
 original_data_df=read_data_df.data_to_pandas_df(input_data_location=input_data_location)
 original_data_df.head()
 
@@ -39,3 +39,9 @@ eda_outputs.eda_correlation_heatmap(data=clean_data_df)
 eda_outputs.eda_mapping_industries_and_count(data=clean_data_df)
 eda_outputs.eda_spread_by_gender(data=clean_data_df)
 eda_outputs.eda_average_loan_amount_by_industry_and_gender(data=clean_data_df)
+eda_outputs.eda_average_loan_amount_by_lmi_indicator_by_industry(data=clean_data_df)
+eda_outputs.eda_average_loan_amount_by_hubzone_indicator_by_industry(data=clean_data_df)
+
+
+# Sklearn Pipeline For Modeling Features
+print('Normalizing And One-Hot Encoding Variables That Will Be Used To Model\n')
