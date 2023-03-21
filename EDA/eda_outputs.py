@@ -68,9 +68,12 @@ class EDA_Outputs:
                    y='Industry_Type', 
                    text_auto='.2s', 
                    title="Amount of Loans Given Out Per Industry Type", 
-                   color='Count', orientation='h')
+                   color='Count', 
+                   orientation='h')
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
-        fig.update_layout(yaxis=dict(tickfont=dict(size=8)), title_x=0.5)
+        fig.update_layout(yaxis=dict(tickfont=dict(size=8)), 
+                          title_x=0.5,
+                          yaxis_title="Industry Type")
 
         fig.write_image("Plots_Storage/EDA_Plots/loan_count_barchart.png")
         
@@ -84,5 +87,27 @@ class EDA_Outputs:
                      color='Gender')
         fig.update_layout(title_x=0.5)
         fig.write_image("Plots_Storage/EDA_Plots/approval_amount_spread_by_gender.png")
+
+        return None
+    
+    def eda_average_loan_amount_by_industry_and_gender(self, data):
+        approval_amount_industry_gender=data.groupby(['Industry_Type', 'Gender'])['CurrentApprovalAmount'].mean().reset_index()
+        fig = px.histogram(approval_amount_industry_gender, 
+                           y="Industry_Type", 
+                           x="CurrentApprovalAmount",
+                           color='Gender', 
+                           barmode='group',
+                           title="Average Loan Amount by Industry Per Gender",
+                           orientation='h',
+                           height=800,
+                           width=1200)
+
+        fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
+        fig.update_layout(yaxis=dict(tickfont=dict(size=10)), 
+                          title_x=0.5,
+                          xaxis_title="Average Loan Amount",
+                          yaxis_title="Industry Type")
+        
+        fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_industry_and_gender.png")
 
         return None
