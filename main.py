@@ -29,7 +29,10 @@ print(f'After removing Null values the new dataframe has the following shape: {r
 
 # Feature Engineering: Industry Mapping
 print('Feature Engineering: Industry Mapping\n')
-clean_data_df=create_features.mapping_industries(data=remove_nulls_df)
+clean_data_df=create_features.mapping_industries(data=remove_nulls_df) # Industry Mapping
+clean_data_df=create_features.number_of_loans(data=clean_data_df) # Number of Loans
+clean_data_df=create_features.amount_of_loan_forgiven(data=clean_data_df) # Amount of Loan Forgiven
+clean_data_df=create_features.revised_loan_amount(data=clean_data_df) # Revised Loan Approval
 
 
 # EDA (All EDA Images are Output in the folder --> Plots_Storage/EDA_Plots)

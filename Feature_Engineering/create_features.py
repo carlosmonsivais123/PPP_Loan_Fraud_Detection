@@ -33,3 +33,22 @@ class Create_Features:
         data['Industry_Type']=data['Industry_Type'].map(industry_mapping_dictionary)
 
         return data
+    
+    def number_of_loans(self, data):
+        loan_count_feature=data.groupby('BorrowerName').count()['LoanNumber'].reset_index().rename(columns={'LoanNumber':'Loan_Count'})
+        data=data.merge(loan_count_feature, 
+                        left_on='BorrowerName', 
+                        right_on='BorrowerName', 
+                        how='left')
+        
+        return data
+
+    def amount_of_loan_forgiven(self, data):
+        data['Loan_Amount_Owed']=data['ForgivenessAmount']-data['CurrentApprovalAmount']
+
+        return data
+    
+    def revised_loan_amount(self, data):
+        data['Revised_Loan_Amount']=data['CurrentApprovalAmount']-data['InitialApprovalAmount']
+
+        return data
