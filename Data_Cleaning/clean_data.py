@@ -12,3 +12,9 @@ class Clean_Data:
         data=data.reset_index(drop=True)
         
         return data
+    
+    def remove_usa_territories(self, data):
+        us_territories=['AS', 'GU', 'MP', 'PR', 'VI']
+        data=data[~data['BorrowerState'].isin(us_territories)]
+
+        return data

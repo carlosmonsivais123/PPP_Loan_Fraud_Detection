@@ -11,7 +11,7 @@ import pandas as pd
 
 class EDA_Outputs:
     def eda_plots_missing_values_heatmap(self, data):
-        fig, ax = plt.subplots(figsize=(15,15)) 
+        fig, ax=plt.subplots(figsize=(15,15)) 
         sns.heatmap(data.isnull(),
                     cbar=False,
                     cmap='viridis').set(title='Missing Values by Column and Row',
@@ -30,14 +30,14 @@ class EDA_Outputs:
         mask=np.triu(np.ones(corr.shape, dtype=bool))
         df_mask = corr.mask(mask)
 
-        fig = ff.create_annotated_heatmap(z=df_mask.to_numpy(), 
-                                          x=df_mask.columns.tolist(),
-                                          y=df_mask.columns.tolist(),
-                                          annotation_text = np.around(df_mask.to_numpy(), decimals=2),
-                                          colorscale=px.colors.diverging.RdBu,
-                                          showscale=True, 
-                                          ygap=1, 
-                                          xgap=1)
+        fig=ff.create_annotated_heatmap(z=df_mask.to_numpy(), 
+                                        x=df_mask.columns.tolist(),
+                                        y=df_mask.columns.tolist(),
+                                        annotation_text = np.around(df_mask.to_numpy(), decimals=2),
+                                        colorscale=px.colors.diverging.RdBu,
+                                        showscale=True, 
+                                        ygap=1, 
+                                        xgap=1)
 
         fig.update_xaxes(side="bottom")
         fig.update_layout(title_text='Correlation Heatmap', 
@@ -91,15 +91,15 @@ class EDA_Outputs:
     
     def eda_average_loan_amount_by_industry_and_gender(self, data):
         approval_amount_industry_gender=data.groupby(['Industry_Type', 'Gender'])['CurrentApprovalAmount'].mean().reset_index()
-        fig = px.histogram(approval_amount_industry_gender, 
-                           y="Industry_Type", 
-                           x="CurrentApprovalAmount",
-                           color='Gender', 
-                           barmode='group',
-                           title="Average Loan Amount by Industry Per Gender",
-                           orientation='h',
-                           height=800,
-                           width=1200)
+        fig=px.histogram(approval_amount_industry_gender, 
+                         y="Industry_Type", 
+                         x="CurrentApprovalAmount",
+                         color='Gender', 
+                         barmode='group',
+                         title="Average Loan Amount by Industry Per Gender",
+                         orientation='h',
+                         height=800,
+                         width=1200)
 
         fig.update_traces(textfont_size=12, textangle=0, textposition="outside", cliponaxis=False)
         fig.update_layout(yaxis=dict(tickfont=dict(size=10)), 
@@ -160,5 +160,121 @@ class EDA_Outputs:
                                       x=0.90))
         
         fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_hubzone_indicator_by_industry.png")
+
+        return None
+    
+
+    def eda_state_loan_count(self, data):
+        state_loan_count=data.groupby(['BorrowerState'])['CurrentApprovalAmount'].\
+            count().reset_index().rename(columns={'CurrentApprovalAmount': 'Number of Loans'})
+
+        fig=px.choropleth(locations=state_loan_count['BorrowerState'], 
+                          locationmode="USA-states", 
+                          color=state_loan_count['Number of Loans'],
+                          color_continuous_scale=px.colors.sequential.Blues, 
+                          title='Number of Loans Approved per State',
+                          scope="usa")
+        
+        fig.update_layout(title_x=0.5,
+                          title=dict(font=dict(size=15)),
+                          coloraxis_colorbar=dict(title="Number of Loans"))
+        fig.update_coloraxes(colorbar_title_font_size=10)
+        
+        fig.write_image("Plots_Storage/EDA_Plots/state_loan_count.png")
+
+        return None
+
+
+    def eda_state_loan_avg_amount(self, data):
+        state_loan_avg_amount=data.groupby(['BorrowerState'])['CurrentApprovalAmount'].\
+            mean().reset_index().rename(columns={'CurrentApprovalAmount': 'Average Loan Amount'})
+
+        fig=px.choropleth(locations=state_loan_avg_amount['BorrowerState'], 
+                          locationmode="USA-states", 
+                          color=state_loan_avg_amount['Average Loan Amount'],
+                          color_continuous_scale=px.colors.sequential.Blues, 
+                          title='Average Loan Amount Approved per State',
+                          scope="usa")
+        
+        fig.update_layout(title_x=0.5,
+                          title=dict(font=dict(size=15)),
+                          coloraxis_colorbar=dict(title="Average Loan Amount"))
+        fig.update_coloraxes(colorbar_title_font_size=10)
+        
+        fig.write_image("Plots_Storage/EDA_Plots/state_loan_avg_amount.png")
+
+        return None
+
+    
+    def eda_zip_loan_count(self, data, counties):
+        zip5_loan_count=data.groupby(['zip5'])['CurrentApprovalAmount'].\
+            count().reset_index().rename(columns={'CurrentApprovalAmount': 'loan_amount_count'})
+
+        fig=px.choropleth(zip5_loan_count, 
+                          geojson=counties, 
+                          locations='zip5', 
+                          color='loan_amount_count',
+                          color_continuous_scale="Viridis",
+                          title='Number of Loans Approved per FIPS Code',
+                          scope="usa")
+        
+        fig.update_layout(title_x=0.5,
+                          title=dict(font=dict(size=15)),
+                          coloraxis_colorbar=dict(title="Number of Loans"))
+        fig.update_coloraxes(colorbar_title_font_size=10)
+
+        fig.write_image("Plots_Storage/EDA_Plots/fips_code_loan_count.png")
+
+        return None
+
+
+    def eda_zip_loan_avg(self, data, counties):
+        zip5_loan_mean=data.groupby(['zip5'])['CurrentApprovalAmount'].\
+            mean().reset_index().rename(columns={'CurrentApprovalAmount': 'loan_amount_mean'})
+
+        fig=px.choropleth(zip5_loan_mean, 
+                          geojson=counties, 
+                          locations='zip5', 
+                          color='loan_amount_mean',
+                          color_continuous_scale="Viridis",
+                          title='Average Loan Amount Approved per FIPS Code',
+                          scope="usa")
+        
+        fig.update_layout(title_x=0.5,
+                          title=dict(font=dict(size=15)),
+                          coloraxis_colorbar=dict(title="Average Loan Amount"))
+        fig.update_coloraxes(colorbar_title_font_size=10)
+
+        fig.write_image("Plots_Storage/EDA_Plots/fips_code_loan_avg_amount.png")
+        
+        return None
+    
+
+    def eda_time_series_gender_loan_amount(self, data):
+        fig=px.scatter(data, 
+                       x="DateApproved", 
+                       y="CurrentApprovalAmount", 
+                       title='Loan Amount Approval By Gender Over Time',
+                       color='Gender')
+
+        fig.update_layout(title_x=0.5)
+
+        fig.write_image("Plots_Storage/EDA_Plots/loan_amount_gender_over_time.png")
+
+        return None
+    
+
+    def eda_time_series_loan_amount(self, data):
+        fig=px.scatter(data, 
+                       x="DateApproved", 
+                       y="CurrentApprovalAmount", 
+                       title='Loan Amount Approval Over Time',
+                       color='CurrentApprovalAmount',
+                       color_continuous_scale="RdBu",)
+
+        fig.update_layout(title_x=0.5,
+                          coloraxis_colorbar=dict(title="Loan Amount"))
+
+        fig.write_image("Plots_Storage/EDA_Plots/loan_amount_over_time.png")
 
         return None
