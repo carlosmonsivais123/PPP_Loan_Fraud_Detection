@@ -7,10 +7,10 @@ from EDA.eda_outputs import EDA_Outputs
 from XGBoost_Regression_Model.model_data_transformation import Model_Data_Transformations
 from XGBoost_Regression_Model.data_split import Data_Split
 from XGBoost_Regression_Model.create_model import Create_Model
+from Model_Feature_Importance.feature_importance import Model_Feature_Importance
 from Residual_Analysis.residual_analysis import Residual_Analysis
 from Residual_Analysis.standardized_residuals_fraud import Fraud_Detection
 from Create_Final_DF.final_df import Final_DF
-
 
 # Calling Modules
 print('Importing Modules\n')
@@ -21,6 +21,7 @@ eda_outputs=EDA_Outputs()
 model_data_transformations=Model_Data_Transformations()
 data_split=Data_Split()
 create_model=Create_Model()
+model_feature_importance=Model_Feature_Importance()
 residual_analysis=Residual_Analysis()
 fraud_detection=Fraud_Detection()
 final_df=Final_DF()
@@ -90,6 +91,10 @@ y=x_y_variables[1]
 # XGBoost Regression Model
 print('Creating And Saving XGBoost Model Based On A GridSearchCV\n')
 best_xgboost_model=create_model.create_xgboost_model(X=X, y=y)
+
+
+# Model Feature Importance
+model_feature_importance.xgboost_feature_importance()
 
 
 # Standardized Residuals
