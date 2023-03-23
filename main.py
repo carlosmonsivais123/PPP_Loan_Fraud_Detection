@@ -85,4 +85,4 @@ print('Creating And Aaving XGBoost Model\n')
 best_xgboost_model=create_model.create_xgboost_model(X=X, y=y)
 
 
-# Fraud Detecion: Residual Analysis
+# Residual Analysis

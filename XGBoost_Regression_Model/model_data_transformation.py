@@ -10,8 +10,6 @@ class Model_Data_Transformations:
         model_vars=data[['LoanNumber', 
                          'ProcessingMethod',
                          'Term',
-                        #  'InitialApprovalAmount',
-                        #  'CurrentApprovalAmount', 
                          'RuralUrbanIndicator', 
                          'HubzoneIndicator',
                          'LMIIndicator', 
@@ -23,8 +21,6 @@ class Model_Data_Transformations:
                          'REFINANCE_EIDL_PROCEED', 
                          'HEALTH_CARE_PROCEED',
                          'DEBT_INTEREST_PROCEED',
-                        #  'ForgivenessAmount',
-                         'Industry_Type', 
                          'Loan_Count', 
                          'Loan_Amount_Owed',
                          'Revised_Loan_Amount', 
@@ -51,13 +47,10 @@ class Model_Data_Transformations:
         categorical_features=['ProcessingMethod', 
                               'RuralUrbanIndicator', 
                               'HubzoneIndicator', 
-                              'LMIIndicator', 
-                              'Industry_Type']
+                              'LMIIndicator']
         categorical_transformer=Pipeline([('onehot', OneHotEncoder(sparse_output=False, handle_unknown='ignore'))])
 
         numeric_features=['Term', 
-                        #   'InitialApprovalAmount', 
-                        #   'CurrentApprovalAmount', 
                           'JobsReported',	
                           'UTILITIES_PROCEED', 
                           'PAYROLL_PROCEED', 
@@ -66,13 +59,11 @@ class Model_Data_Transformations:
                           'REFINANCE_EIDL_PROCEED',
                           'HEALTH_CARE_PROCEED',
                           'DEBT_INTEREST_PROCEED',
-                        #   'ForgivenessAmount',
                           'Loan_Count',
                           'Loan_Amount_Owed',
                           'Revised_Loan_Amount',
                           'Days_With_Loan']
         numeric_transformer=Pipeline([('scaler', StandardScaler())])
-
 
         preprocessing_step=ColumnTransformer([('categorical', categorical_transformer, categorical_features),
                                               ('numerical', numeric_transformer, numeric_features)],
