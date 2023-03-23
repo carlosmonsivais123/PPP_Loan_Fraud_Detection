@@ -1,2 +1,2 @@
-Loan_Data_Location: 'data/public_150k_plus_230101.csv'
-GeoJSON_Data_Location: 'data/geojson-counties-fips.json'
+Loan_Data_Location: 'data/Input_Data/public_150k_plus_230101.csv'
+GeoJSON_Data_Location: 'data/Input_Data/geojson-counties-fips.json'

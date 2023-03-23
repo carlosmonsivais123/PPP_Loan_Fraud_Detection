@@ -12,4 +12,6 @@ for outliers, which I will consider fraudulent.
 2. GeoJson Dataset: https://github.com/plotly/datasets/blob/master/geojson-counties-fips.json
 
 ### Readings
-1. Standardized Residuals: http://www.stat.ucla.edu/~nchristo/introeconometrics/introecon_compute_sres_hat.pdf
+* Standardized Residuals: http://www.stat.ucla.edu/~nchristo/introeconometrics/introecon_compute_sres_hat.pdf
+
+* Standardized Residuals: https://online.stat.psu.edu/stat462/node/172/

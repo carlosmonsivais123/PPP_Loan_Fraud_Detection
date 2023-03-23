@@ -7,6 +7,9 @@ from EDA.eda_outputs import EDA_Outputs
 from XGBoost_Regression_Model.model_data_transformation import Model_Data_Transformations
 from XGBoost_Regression_Model.data_split import Data_Split
 from XGBoost_Regression_Model.create_model import Create_Model
+from Residual_Analysis.residual_analysis import Residual_Analysis
+from Residual_Analysis.standardized_residuals_fraud import Fraud_Detection
+from Create_Final_DF.final_df import Final_DF
 
 
 # Calling Modules
@@ -18,6 +21,9 @@ eda_outputs=EDA_Outputs()
 model_data_transformations=Model_Data_Transformations()
 data_split=Data_Split()
 create_model=Create_Model()
+residual_analysis=Residual_Analysis()
+fraud_detection=Fraud_Detection()
+final_df=Final_DF()
 
 
 # Read in Data
@@ -41,10 +47,11 @@ clean_data_df=create_features.number_of_loans(data=clean_data_df) # Number of Lo
 clean_data_df=create_features.amount_of_loan_forgiven(data=clean_data_df) # Amount of Loan Forgiven
 clean_data_df=create_features.revised_loan_amount(data=clean_data_df) # Revised Loan Approval
 clean_data_df=create_features.days_with_loan_approval(data=clean_data_df) # Days With Loan
-clean_data_df=create_features.create_zip5(data=clean_data_df) # Zip5 Feature
+clean_data_df=create_features.create_borrower_zip5(data=clean_data_df) # ZIP5 Borrower Feature
+clean_data_df=create_features.create_lender_zip5(data=clean_data_df) # ZIP5 Lender Feature
 
 
-# EDA (All EDA Images are Output in the folder --> Plots_Storage/EDA_Plots)
+# EDA
 print('Creating EDA Plots\n')
 eda_outputs.eda_plots_missing_values_heatmap(data=clean_data_df)
 eda_outputs.eda_correlation_heatmap(data=clean_data_df)
@@ -81,8 +88,22 @@ y=x_y_variables[1]
 
 
 # XGBoost Regression Model
-print('Creating And Aaving XGBoost Model\n')
+print('Creating And Saving XGBoost Model Based On A GridSearchCV\n')
 best_xgboost_model=create_model.create_xgboost_model(X=X, y=y)
 
 
-# Residual Analysis
+# Standardized Residuals
+print('Standardizing Resdiduals For Fraud Detection\n')
+standardized_residuals_df=residual_analysis.analyze_residual_data(X=X, 
+                                                                  y=y,
+                                                                  clean_data_df=clean_data_df)
+
+
+# Calculating Fraud Based on Residuals
+print('Labeling Fraud And Not Fraud Loans Based On Standardized Residual Percentiles\n')
+fraud_df=fraud_detection.standardized_residuals_percentiles(data=standardized_residuals_df)
+
+
+# Creating Final DataFrame
+print('Creating The Final Output DataFrame\n')
+final_df_output=final_df.create_final_dataframe(clean_data_df=clean_data_df, fraud_df=fraud_df)

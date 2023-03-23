@@ -1,4 +1,3 @@
-
 class Create_Features:
     def mapping_industries(self, data):
         data['Industry_Type']=data['NAICSCode'].astype(str).str[:2]
@@ -63,7 +62,13 @@ class Create_Features:
         return data
     
     
-    def create_zip5(self, data):
-        data['zip5']=data['BorrowerZip'].str[0:5]
+    def create_borrower_zip5(self, data):
+        data['Borrower_ZIP5']=data['BorrowerZip'].str[0:5]
+
+        return data
+    
+
+    def create_lender_zip5(self, data):
+        data['Servicing_Lender_ZIP5']=data['ServicingLenderZip'].str[0:5]
 
         return data

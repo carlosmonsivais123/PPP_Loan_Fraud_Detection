@@ -10,6 +10,7 @@ class Model_Data_Transformations:
         model_vars=data[['LoanNumber', 
                          'ProcessingMethod',
                          'Term',
+                         'CurrentApprovalAmount',
                          'RuralUrbanIndicator', 
                          'HubzoneIndicator',
                          'LMIIndicator', 
@@ -51,7 +52,8 @@ class Model_Data_Transformations:
         categorical_transformer=Pipeline([('onehot', OneHotEncoder(sparse_output=False, handle_unknown='ignore'))])
 
         numeric_features=['Term', 
-                          'JobsReported',	
+                          'JobsReported',
+                          'CurrentApprovalAmount',
                           'UTILITIES_PROCEED', 
                           'PAYROLL_PROCEED', 
                           'MORTGAGE_INTEREST_PROCEED', 

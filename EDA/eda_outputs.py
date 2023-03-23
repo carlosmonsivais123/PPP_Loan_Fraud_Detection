@@ -207,12 +207,12 @@ class EDA_Outputs:
 
     
     def eda_zip_loan_count(self, data, counties):
-        zip5_loan_count=data.groupby(['zip5'])['CurrentApprovalAmount'].\
+        zip5_loan_count=data.groupby(['Borrower_ZIP5'])['CurrentApprovalAmount'].\
             count().reset_index().rename(columns={'CurrentApprovalAmount': 'loan_amount_count'})
 
         fig=px.choropleth(zip5_loan_count, 
                           geojson=counties, 
-                          locations='zip5', 
+                          locations='Borrower_ZIP5', 
                           color='loan_amount_count',
                           color_continuous_scale="Viridis",
                           title='Number of Loans Approved per FIPS Code',
@@ -229,12 +229,12 @@ class EDA_Outputs:
 
 
     def eda_zip_loan_avg(self, data, counties):
-        zip5_loan_mean=data.groupby(['zip5'])['CurrentApprovalAmount'].\
+        zip5_loan_mean=data.groupby(['Borrower_ZIP5'])['CurrentApprovalAmount'].\
             mean().reset_index().rename(columns={'CurrentApprovalAmount': 'loan_amount_mean'})
 
         fig=px.choropleth(zip5_loan_mean, 
                           geojson=counties, 
-                          locations='zip5', 
+                          locations='Borrower_ZIP5', 
                           color='loan_amount_mean',
                           color_continuous_scale="Viridis",
                           title='Average Loan Amount Approved per FIPS Code',
