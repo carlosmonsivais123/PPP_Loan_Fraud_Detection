@@ -5,6 +5,8 @@ from Data_Cleaning.clean_data import Clean_Data
 from Feature_Engineering.create_features import Create_Features
 from EDA.eda_outputs import EDA_Outputs
 from XGBoost_Regression_Model.model_data_transformation import Model_Data_Transformations
+from XGBoost_Regression_Model.data_split import Data_Split
+from XGBoost_Regression_Model.create_model import Create_Model
 
 
 # Calling Modules
@@ -14,6 +16,8 @@ clean_data=Clean_Data()
 create_features=Create_Features()
 eda_outputs=EDA_Outputs()
 model_data_transformations=Model_Data_Transformations()
+data_split=Data_Split()
+create_model=Create_Model()
 
 
 # Read in Data
@@ -66,3 +70,19 @@ ml_dataset_df=model_data_transformations.select_and_impute_features(data=clean_d
 
 # Sklearn Pipeline For Modeling Features --> One-Hot Encoding and StandardScaler()
 print('Normalizing And One-Hot Encoding Variables That Will Be Used To Model\n')
+ml_sparse_df=model_data_transformations.sklearn_data_pipelines(data=ml_dataset_df)
+
+
+# Splitting Into X and Y Variables
+print('Splitting Into X And y Variables\n')
+x_y_variables=data_split.split_data_x_y(data=ml_sparse_df)
+X=x_y_variables[0]
+y=x_y_variables[1]
+
+
+# XGBoost Regression Model
+print('Creating And Aaving XGBoost Model\n')
+best_xgboost_model=create_model.create_xgboost_model(X=X, y=y)
+
+
+# Fraud Detecion: Residual Analysis
