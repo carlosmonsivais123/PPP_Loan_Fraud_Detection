@@ -1,6 +1,7 @@
 class Clean_Data:
     def remove_nulls_based_on_columns(self, data):
-        data=data.dropna(subset=['BorrowerAddress', 
+        data=data.dropna(subset=['BorrowerName',
+                                 'BorrowerAddress', 
                                  'BorrowerCity', 
                                  'BorrowerState', 
                                  'BorrowerZip', 

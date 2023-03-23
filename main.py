@@ -4,6 +4,7 @@ from Read_Data.read_data_files import Read_Data
 from Data_Cleaning.clean_data import Clean_Data
 from Feature_Engineering.create_features import Create_Features
 from EDA.eda_outputs import EDA_Outputs
+from XGBoost_Regression_Model.model_data_transformation import Model_Data_Transformations
 
 
 # Calling Modules
@@ -12,6 +13,7 @@ read_data=Read_Data()
 clean_data=Clean_Data()
 create_features=Create_Features()
 eda_outputs=EDA_Outputs()
+model_data_transformations=Model_Data_Transformations()
 
 
 # Read in Data
@@ -53,11 +55,14 @@ eda_outputs.eda_zip_loan_count(data=clean_data_df, counties=geojson_data)
 eda_outputs.eda_zip_loan_avg(data=clean_data_df, counties=geojson_data)
 eda_outputs.eda_time_series_gender_loan_amount(data=clean_data_df)
 eda_outputs.eda_time_series_loan_amount(data=clean_data_df)
+eda_outputs.eda_spend_amount_per_category(data=clean_data_df)
+eda_outputs.eda_daily_spend_per_indsutry(data=clean_data_df)
 
 
-# Subsetting Features
+# Selecting Modeling Features
+print('Selecting and Imputing Features That Will Be Used In The Modeling Process')
+ml_dataset_df=model_data_transformations.select_and_impute_features(data=clean_data_df)
 
 
-
-# Sklearn Pipeline For Modeling Features
+# Sklearn Pipeline For Modeling Features --> One-Hot Encoding and StandardScaler()
 print('Normalizing And One-Hot Encoding Variables That Will Be Used To Model\n')

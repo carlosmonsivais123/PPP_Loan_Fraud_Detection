@@ -278,3 +278,56 @@ class EDA_Outputs:
         fig.write_image("Plots_Storage/EDA_Plots/loan_amount_over_time.png")
 
         return None
+    
+
+    def eda_spend_amount_per_category(self, data): 
+        category_spend=pd.DataFrame(data[['UTILITIES_PROCEED',
+                                          'PAYROLL_PROCEED', 
+                                          'MORTGAGE_INTEREST_PROCEED', 
+                                          'RENT_PROCEED',
+                                          'REFINANCE_EIDL_PROCEED', 
+                                          'HEALTH_CARE_PROCEED',
+                                          'DEBT_INTEREST_PROCEED']].\
+                                            sum(axis=0)).\
+                                                reset_index(drop=False).\
+                                                    rename(columns={'index':'Spend Categories', 0:'Amount Spent'}).\
+                                                        sort_values(by='Amount Spent', ascending=False)
+
+        fig=px.bar(category_spend, 
+                   x="Spend Categories", 
+                   y="Amount Spent", 
+                   color="Spend Categories", 
+                   title="Spending by Categories",
+                   text_auto=True)
+    
+        fig.update_layout(title_x=0.5,
+                          showlegend=False)
+
+        fig.write_image("Plots_Storage/EDA_Plots/spend_per_category_type.png")
+
+        return None
+    
+    def eda_daily_spend_per_indsutry(self, data):
+        spend_per_category_per_day=data.groupby(['Industry_Type', 'DateApproved'])['CurrentApprovalAmount'].\
+            sum().\
+                reset_index(drop=False).\
+                    rename(columns={'CurrentApprovalAmount': 'Amount'})
+
+        fig=px.area(spend_per_category_per_day, 
+                    x="DateApproved", 
+                    y="Amount", 
+                    color="Industry_Type", 
+                    facet_col="Industry_Type",
+                    facet_col_wrap=4)
+
+        fig.update_layout(title_text='Daily Spend Per Industry', 
+                          title_x=0.5, 
+                          width=1500, 
+                          height=1200, 
+                          showlegend=False)
+        fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
+        fig.update_annotations(font_size=9)
+
+        fig.write_image("Plots_Storage/EDA_Plots/daily_spend_per_industry.png")
+
+        return None
