@@ -15,3 +15,6 @@ for outliers, which I will consider fraudulent.
 * Standardized Residuals: http://www.stat.ucla.edu/~nchristo/introeconometrics/introecon_compute_sres_hat.pdf
 
 * Standardized Residuals: https://online.stat.psu.edu/stat462/node/172/
+
+### Project Diagram
+![Project Flow Diagram](Project_Diagram_Flow/PPP_Fraud_Detection.drawio.png)
