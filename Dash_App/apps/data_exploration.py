@@ -93,7 +93,7 @@ count_df['Date Approved']=pd.to_datetime(count_df['Date Approved'], format='%Y-%
 fig2=px.bar(amount_df, 
             x='Date Approved', 
             y='Current Approval Amount Sum',
-            title='Number of Loans Approved Daily',
+            title='Daily Loan Amount Disbursed',
             color='Current Approval Amount Sum')
 
 fig2.update_layout({'title_x':0.5,
@@ -143,13 +143,11 @@ layout=html.Div([html.Div(children=[html.H5("Data Exploration"),
                  html.Div(className="section-banner", 
                           children='Loan Counts and Amounts Given'),
 
-
                  html.Div(children=[dcc.Graph(figure=fig1)],
                           style = {'display': 'inline-block', 'verticalAlign': 'top',  'padding':'0px', "width": "100%"}),
 
                  html.Div(children=[dcc.Graph(figure=fig2)],
                           style = {'display': 'inline-block', 'verticalAlign': 'top',  'padding':'0px', "width": "100%"}),
-
 
                  html.Div(className="section-banner", 
                           children='Where Loan Disbursements Went'),

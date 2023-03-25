@@ -52,10 +52,21 @@ residuals and look for outliers, which I will consider fraudulent.
 
 8. This is the process end to end from reading in data, data cleaning, transformations, modeling, fraud detection, output files and starting up the web application.
 
+### Project Diagram
+![Project Flow Diagram](Project_Diagram_Flow/PPP_Fraud_Detection.drawio.png)
+
 ### Readings
 * Standardized Residuals
     * http://www.stat.ucla.edu/~nchristo/introeconometrics/introecon_compute_sres_hat.pdf
     * https://online.stat.psu.edu/stat462/node/172/
 
-### Project Diagram
-![Project Flow Diagram](Project_Diagram_Flow/PPP_Fraud_Detection.drawio.png)
+### Dash Images
+![alt](Dash_Images/dash_1.png)
+![alt](Dash_Images/dash_2.png)
+![alt](Dash_Images/dash_3.png)
+![alt](Dash_Images/dash_4.png)
+![alt](Dash_Images/dash_5.png)
+![alt](Dash_Images/dash_6.png)
+![alt](Dash_Images/dash_7.png)
+![alt](Dash_Images/dash_8.png)
+![alt](Dash_Images/dash_9.png)
