@@ -43,12 +43,19 @@ residuals and look for outliers, which I will consider fraudulent.
             - Fraud labels are applied to each loan using the bottom 1% and upper 99% loans that are considered to be outliers.
             - Final dataframe is produced and stored in the following location so the Dash application is able to use this output file in the following location: Dash_App/data/final_analysis_df.csv
 
+6. Now that all the output files are in the correct place, we can run the Dash web application by changing directories into the Dash_App environment by running the following:
+    * cd Dash_App/
+    * python3 index.py
 
+7. Now this will create the web application on the following port where you need to open a browser and type in the following link to access the Dash application:
+    * http://127.0.0.1:8050/
+
+8. This is the process end to end from reading in data, data cleaning, transformations, modeling, fraud detection, output files and starting up the web application.
 
 ### Readings
-* Standardized Residuals: http://www.stat.ucla.edu/~nchristo/introeconometrics/introecon_compute_sres_hat.pdf
-
-* Standardized Residuals: https://online.stat.psu.edu/stat462/node/172/
+* Standardized Residuals
+    * http://www.stat.ucla.edu/~nchristo/introeconometrics/introecon_compute_sres_hat.pdf
+    * https://online.stat.psu.edu/stat462/node/172/
 
 ### Project Diagram
 ![Project Flow Diagram](Project_Diagram_Flow/PPP_Fraud_Detection.drawio.png)
