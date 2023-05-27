@@ -1,2 +1,6 @@
-Loan_Data_Location: 'data/Input_Data/public_150k_plus_230101.csv'
-GeoJSON_Data_Location: 'data/Input_Data/geojson-counties-fips.json'
+Read_Data_Location:
+  Loan_Data_Location: 'data/Input_Data/public_150k_plus_230101.csv'
+  GeoJSON_Data_Location: 'data/Input_Data/geojson-counties-fips.json'
+
+Plot_Location:
+  EDA_Plot_Location: 'Plots_Storage/EDA_Plots'

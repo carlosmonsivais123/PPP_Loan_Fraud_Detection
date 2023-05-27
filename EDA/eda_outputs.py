@@ -10,6 +10,9 @@ import pandas as pd
 
 
 class EDA_Outputs:
+    def __init__(self, plot_location):
+        self.plot_location=plot_location
+
     def eda_plots_missing_values_heatmap(self, data):
         fig, ax=plt.subplots(figsize=(15,15)) 
         sns.heatmap(data.isnull(),
@@ -17,7 +20,7 @@ class EDA_Outputs:
                     cmap='viridis').set(title='Missing Values by Column and Row',
                                         xlabel='Column',
                                         ylabel='Row')
-        fig.savefig("Plots_Storage/EDA_Plots/missing_values_heatmap.png")
+        fig.savefig(f"{self.plot_location}/missing_values_heatmap.png")
         plt.close()
 
         return None
@@ -55,7 +58,7 @@ class EDA_Outputs:
             if fig.layout.annotations[i].text == 'nan':
                 fig.layout.annotations[i].text = ""
 
-        fig.write_image("Plots_Storage/EDA_Plots/correlation_heatmap.png")
+        fig.write_image(f"{self.plot_location}/correlation_heatmap.png")
 
         return None
     
@@ -74,7 +77,7 @@ class EDA_Outputs:
                           title_x=0.5,
                           yaxis_title="Industry Type")
 
-        fig.write_image("Plots_Storage/EDA_Plots/loan_count_barchart.png")
+        fig.write_image(f"{self.plot_location}/loan_count_barchart.png")
         
         return None
     
@@ -85,7 +88,7 @@ class EDA_Outputs:
                      title="Loan Current Approval Amount by Gender",
                      color='Gender')
         fig.update_layout(title_x=0.5)
-        fig.write_image("Plots_Storage/EDA_Plots/approval_amount_spread_by_gender.png")
+        fig.write_image(f"{self.plot_location}/approval_amount_spread_by_gender.png")
 
         return None
     
@@ -107,7 +110,7 @@ class EDA_Outputs:
                           xaxis_title="Average Loan Amount",
                           yaxis_title="Industry Type")
         
-        fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_industry_and_gender.png")
+        fig.write_image(f"{self.plot_location}/average_loan_amount_by_industry_and_gender.png")
 
         return None
     
@@ -132,7 +135,7 @@ class EDA_Outputs:
                                       xanchor="right",
                                       x=0.90))
         
-        fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_lmi_indicator_by_industry.png")
+        fig.write_image(f"{self.plot_location}/average_loan_amount_by_lmi_indicator_by_industry.png")
 
         return None
         
@@ -159,7 +162,7 @@ class EDA_Outputs:
                                       xanchor="right",
                                       x=0.90))
         
-        fig.write_image("Plots_Storage/EDA_Plots/average_loan_amount_by_hubzone_indicator_by_industry.png")
+        fig.write_image(f"{self.plot_location}/average_loan_amount_by_hubzone_indicator_by_industry.png")
 
         return None
     
@@ -180,7 +183,7 @@ class EDA_Outputs:
                           coloraxis_colorbar=dict(title="Number of Loans"))
         fig.update_coloraxes(colorbar_title_font_size=10)
         
-        fig.write_image("Plots_Storage/EDA_Plots/state_loan_count.png")
+        fig.write_image(f"{self.plot_location}/state_loan_count.png")
 
         return None
 
@@ -201,7 +204,7 @@ class EDA_Outputs:
                           coloraxis_colorbar=dict(title="Average Loan Amount"))
         fig.update_coloraxes(colorbar_title_font_size=10)
         
-        fig.write_image("Plots_Storage/EDA_Plots/state_loan_avg_amount.png")
+        fig.write_image(f"{self.plot_location}/state_loan_avg_amount.png")
 
         return None
 
@@ -223,7 +226,7 @@ class EDA_Outputs:
                           coloraxis_colorbar=dict(title="Number of Loans"))
         fig.update_coloraxes(colorbar_title_font_size=10)
 
-        fig.write_image("Plots_Storage/EDA_Plots/fips_code_loan_count.png")
+        fig.write_image(f"{self.plot_location}/fips_code_loan_count.png")
 
         return None
 
@@ -245,7 +248,7 @@ class EDA_Outputs:
                           coloraxis_colorbar=dict(title="Average Loan Amount"))
         fig.update_coloraxes(colorbar_title_font_size=10)
 
-        fig.write_image("Plots_Storage/EDA_Plots/fips_code_loan_avg_amount.png")
+        fig.write_image(f"{self.plot_location}/fips_code_loan_avg_amount.png")
         
         return None
     
@@ -259,7 +262,7 @@ class EDA_Outputs:
 
         fig.update_layout(title_x=0.5)
 
-        fig.write_image("Plots_Storage/EDA_Plots/loan_amount_gender_over_time.png")
+        fig.write_image(f"{self.plot_location}/loan_amount_gender_over_time.png")
 
         return None
     
@@ -275,7 +278,7 @@ class EDA_Outputs:
         fig.update_layout(title_x=0.5,
                           coloraxis_colorbar=dict(title="Loan Amount"))
 
-        fig.write_image("Plots_Storage/EDA_Plots/loan_amount_over_time.png")
+        fig.write_image(f"{self.plot_location}/loan_amount_over_time.png")
 
         return None
     
@@ -303,7 +306,7 @@ class EDA_Outputs:
         fig.update_layout(title_x=0.5,
                           showlegend=False)
 
-        fig.write_image("Plots_Storage/EDA_Plots/spend_per_category_type.png")
+        fig.write_image(f"{self.plot_location}/spend_per_category_type.png")
 
         return None
     
@@ -328,6 +331,6 @@ class EDA_Outputs:
         fig.for_each_annotation(lambda a: a.update(text=a.text.split("=")[-1]))
         fig.update_annotations(font_size=9)
 
-        fig.write_image("Plots_Storage/EDA_Plots/daily_spend_per_industry.png")
+        fig.write_image(f"{self.plot_location}/daily_spend_per_industry.png")
 
         return None

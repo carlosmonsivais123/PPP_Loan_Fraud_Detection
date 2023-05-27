@@ -4,5 +4,9 @@ import numpy as np
 with open('Input_Values/inputs.yaml', 'r') as file:
     input_vars=yaml.safe_load(file)
 
-loan_input_data_location=input_vars['Loan_Data_Location']
-geojson_input_data_location=input_vars['GeoJSON_Data_Location']
+# Read Data Location
+loan_input_data_location=input_vars['Read_Data_Location']['Loan_Data_Location']
+geojson_input_data_location=input_vars['Read_Data_Location']['GeoJSON_Data_Location']
+
+# Plot Location
+eda_plot_location=input_vars['Plot_Location']['EDA_Plot_Location']
